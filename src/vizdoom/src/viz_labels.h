@@ -43,6 +43,9 @@
 
 #include <vector>
 #include <unordered_map>
+#include <string>
+#include <unordered_set>
+#include <iostream>
 
 #ifdef VIZ_LABELS_TEST
 #include <SDL_video.h>
@@ -50,7 +53,8 @@
 
 #define VIZ_MAX_LABELS 256
 #define VIZ_MAX_LABEL_NAME_LEN 64
-
+#define NUM_DYNAMIC_ENTITIES 4
+#define WALL_LABEL (NUM_DYNAMIC_ENTITIES+2)
 struct VIZLabel{
     unsigned int objectId;
     char objectName[VIZ_MAX_LABEL_NAME_LEN];
@@ -76,6 +80,12 @@ struct VIZSprite{
         this->label = 0;
     };
 };
+
+#include <vector>
+BYTE custom_label(char* input);
+/* std::vector<const char*> NAME = {"ENEMIES", "DEFENSIVE", "WEAPONS", "AMMO"}; */
+/* BYTE TP_WALL_LABEL=6; */
+
 
 class VIZLabelsBuffer{
 public:
@@ -133,4 +143,5 @@ private:
 };
 
 extern VIZLabelsBuffer* vizLabels;
+
 #endif

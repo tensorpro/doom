@@ -22,6 +22,7 @@ game = DoomGame()
 
 # Use other config file if you wish.
 game.load_config("../../scenarios/deadly_corridor.cfg")
+game.load_config("../../scenarios/deathmatch.cfg")
 
 # game.set_console_enabled(True)
 # game.set_window_visible(False)
@@ -47,16 +48,16 @@ game.set_screen_format(ScreenFormat.RGB24)
 game.set_screen_resolution(ScreenResolution.RES_640X480)
 
 # Enables depth buffer.
-game.set_depth_buffer_enabled(True)
+# game.set_depth_buffer_enabled(True)
 
 # Enables labeling of in game objects labeling.
 game.set_labels_buffer_enabled(True)
 
 # Enables buffer with top down map of he current episode/level .
-game.set_automap_buffer_enabled(True)
-game.set_automap_mode(AutomapMode.OBJECTS)
-game.set_automap_rotate(False)
-game.set_automap_render_textures(False)
+# game.set_automap_buffer_enabled(True)
+# game.set_automap_mode(AutomapMode.OBJECTS)
+# game.set_automap_rotate(False)
+# game.set_automap_render_textures(False)
 
 game.set_render_hud(True)
 game.set_render_minimal_hud(False)
@@ -66,8 +67,9 @@ game.init()
 
 actions = [[True, False, False], [False, True, False], [False, False, True]]
 
-episodes = 10
+episodes = 1
 sleep_time = 0.028
+import numpy as np
 
 for i in range(episodes):
     print("Episode #" + str(i + 1))
@@ -82,7 +84,7 @@ for i in range(episodes):
 
         # Just screen buffer, given in selected format. This buffer is always available.
         screen = state.screen_buffer
-        cv2.imshow('ViZDoom Screen Buffer', screen)
+        # cv2.imshow('ViZDoom Screen Buffer', screen)
 
         # Depth buffer, always in 8-bit gray channel format.
         # This is most fun. It looks best if you inverse colors.
@@ -95,8 +97,8 @@ for i in range(episodes):
         # Labels data are available in state.labels, also see labels.py example.
         labels = state.labels_buffer
         if labels is not None:
-            cv2.imshow('ViZDoom Labels Buffer', labels)
-
+            cv2.imshow('ViZDoom Labels Buffer', labels*40)
+            print(np.unique(labels))
         # Map buffer, in the same format as screen buffer.
         # Shows top down map of the current episode/level.
         automap = state.automap_buffer

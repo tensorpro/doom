@@ -330,7 +330,7 @@ nextpost:
 //VIZDOOM_CODE
 void R_DrawVisSprite (vissprite_t *vis)
 {
-	if(vizLabels!=NULL) vizLabels->setLabel(vizLabels->getLabel(vis));
+	if(vizLabels!=NULL) vizLabels->setLabel(vis->LABEL);
 
 	const BYTE *pixels;
 	const FTexture::Span *spans;
@@ -438,6 +438,7 @@ void R_DrawVisSprite (vissprite_t *vis)
 	R_FinishSetPatchStyle ();
 
 	NetUpdate ();
+	if(vizLabels!=NULL) vizLabels->setLabel(WALL_LABEL);
 }
 
 void R_DrawWallSprite(vissprite_t *spr)
@@ -1078,7 +1079,13 @@ void R_ProjectSprite (AActor *thing, int fakeside, F3DFloor *fakefloor, F3DFloor
 		}
 	}
 
-	if(vizLabels!=NULL) vizLabels->addSprite(thing, vis);
+	if(vizLabels!=NULL) {
+		vizLabels->addSprite(thing, vis);
+		char nameStr[VIZ_MAX_LABEL_NAME_LEN];
+		strncpy(nameStr, thing->GetClass()->TypeName.GetChars(), VIZ_MAX_LABEL_NAME_LEN);
+		// puts(nameStr);
+		vis->LABEL = custom_label(nameStr);
+	}
 }
 
 static void R_ProjectWallSprite(AActor *thing, fixed_t fx, fixed_t fy, fixed_t fz, FTextureID picnum, fixed_t xscale, fixed_t yscale, int renderflags)

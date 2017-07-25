@@ -79,6 +79,7 @@ struct vissprite_t
 	BYTE			ColormapNum;	// Which colormap is rendered (needed for shaded drawer)
 	short 			renderflags;
 	DWORD			Translation;	// [RH] for color translation
+	BYTE			LABEL;	// tensorpro :: store label for labels buffer
 	visstyle_t		Style;
 };
 

@@ -813,6 +813,7 @@ void R_RenderActorView (AActor *actor, bool dontmaplines)
 	if (viewactive)
 	{
 		PlaneCycles.Clock();
+		
 		R_DrawPlanes ();
 		R_DrawSkyBoxes ();
 		PlaneCycles.Unclock();
@@ -827,6 +828,7 @@ void R_RenderActorView (AActor *actor, bool dontmaplines)
 		NetUpdate ();
 		
 		MaskedCycles.Clock();
+		vizLabels->setLabel(200);
 		R_DrawMasked ();
 		MaskedCycles.Unclock();
 

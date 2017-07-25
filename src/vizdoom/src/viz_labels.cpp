@@ -209,3 +209,97 @@ void VIZLabelsBuffer::testUpdate() {
     SDL_UpdateWindowSurface(this->window);
 }
 #endif
+
+
+std::unordered_set<std::string> ENEMIES = {
+  "Zombieman",
+  "ShotgunGuy",
+  "Archvile",
+  "Revenant",
+  "RevenantTracer",
+  "Fatso",
+  "ChaingunGuy",
+  "DoomImp",
+  "Demon",
+  "Spectre",
+  "Cacodemon",
+  "BaronOfHell",
+  "BaronBall",
+  "HellKnight",
+  "LostSoul",
+  "SpiderMastermind",
+  "Arachnotron",
+  "Cyberdemon",
+  "PainElemental",
+  "WolfensteinSS",
+  "CommanderKeen",
+  "BossBrain",
+  "BossEye",
+  "BossTarget"
+};
+
+  
+std::unordered_set<std::string> DEFENSIVE = {
+  "CustomMedikit",
+  "GreenArmor",
+  "BlueArmor",
+  "HealthBonus",
+  "ArmorBonus",
+  "Stimpack",
+  "Medikit",
+  "InvulnerabilitySphere"
+};
+
+
+std::unordered_set<std::string> AMMO = {
+  "Clip",
+  "ClipBox",
+  "RocketAmmo",
+  "RocketBox",
+  "Cell",
+  "CellPack",
+  "Shell",
+  "ShellBox",
+  "Backpack"
+};
+std::unordered_set<std::string> WEAPONS = {
+  "BFG9000",
+  "Chaingun",
+  "Chainsaw",
+  "RocketLauncher",
+  "PlasmaRifle",
+  "Shotgun",
+  "SuperShotgun",
+  "BFG"
+};
+
+
+std::unordered_set<std::string> CORPSES = {
+  "DeadCacodemon",
+  "DeadMarine",
+  "DeadZombieMan",
+  "DeadDemon",
+  "DeadLostSoul",
+  "DeadDoomImp",
+  "DeadShotgunGuy"
+};
+std::unordered_set<std::string> PLAYERS = {
+  "DoomPlayer"
+};
+
+// #include <unordered_set>
+std::unordered_set<std::string> COURSE_CLASSES[] = {ENEMIES, DEFENSIVE, WEAPONS, AMMO};
+// VIZ_WALL_LABEL = COURSE_CLASSES.size()+2;
+BYTE custom_label(char* input){
+  // puts(input);
+  for (int i = 0; i < 5; i++){
+    std::unordered_set<std::string> myset = COURSE_CLASSES[i];
+    
+    std::unordered_set<std::string>::const_iterator got = myset.find (input);
+    if ( got != myset.end() ){
+      // std::cout << input << " is in " << NAMES[i] << "\n";
+      return i+1;
+    }
+  }
+  return 0;
+}
