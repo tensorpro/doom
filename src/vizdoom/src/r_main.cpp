@@ -828,7 +828,6 @@ void R_RenderActorView (AActor *actor, bool dontmaplines)
 		NetUpdate ();
 		
 		MaskedCycles.Clock();
-		vizLabels->setLabel(200);
 		R_DrawMasked ();
 		MaskedCycles.Unclock();
 
