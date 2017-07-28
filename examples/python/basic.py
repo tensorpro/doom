@@ -13,6 +13,7 @@
 
 from __future__ import print_function
 from vizdoom import *
+import cv2
 
 from random import choice
 from time import sleep
@@ -33,7 +34,7 @@ game.set_doom_scenario_path("../../scenarios/basic.wad")
 game.set_doom_map("map01")
 
 # Sets resolution. Default is 320X240
-game.set_screen_resolution(ScreenResolution.RES_640X480)
+game.set_screen_resolution(ScreenResolution.RES_160X120)
 
 # Sets the screen buffer format. Not used here but now you can change it. Defalut is CRCGCB.
 game.set_screen_format(ScreenFormat.RGB24)
@@ -68,7 +69,7 @@ game.add_available_button(Button.ATTACK)
 game.add_available_game_variable(GameVariable.AMMO2)
 
 # Causes episodes to finish after 200 tics (actions)
-game.set_episode_timeout(200)
+game.set_episode_timeout(20000)
 
 # Makes episodes start after 10 tics (~after raising the weapon)
 game.set_episode_start_time(10)
@@ -94,7 +95,9 @@ game.init()
 # Define some actions. Each list entry corresponds to declared buttons:
 # MOVE_LEFT, MOVE_RIGHT, ATTACK
 # 5 more combinations are naturally possible but only 3 are included for transparency when watching.
-actions = [[True, False, False], [False, True, False], [False, False, True]]
+#actions = [[True, False, False], [False, True, False], [False, False, True]]
+actions = [[False, False, False], [False, False, False], [False, False, False]]
+
 
 # Run this many episodes
 episodes = 10
@@ -108,6 +111,9 @@ for i in range(episodes):
 
     # Starts a new episode. It is not needed right after init() but it doesn't cost much. At least the loop is nicer.
     game.new_episode()
+
+    game.send_game_command('am_grid 1')
+    game.send_game_command('am_scale 0.5')
 
     while not game.is_episode_finished():
 
@@ -126,6 +132,9 @@ for i in range(episodes):
         # Makes a random action and get remember reward.
         r = game.make_action(choice(actions))
 
+        cv2.imshow('automap:', automap_buf)
+        cv2.waitKey(2)
+
         # Makes a "prolonged" action and skip frames:
         # skiprate = 4
         # r = game.make_action(choice(actions), skiprate)
@@ -136,10 +145,12 @@ for i in range(episodes):
         # r = game.get_last_reward()
 
         # Prints state's game variables and reward.
+        """
         print("State #" + str(n))
         print("Game variables:", vars)
         print("Reward:", r)
         print("=====================")
+        """
 
         if sleep_time > 0:
             sleep(sleep_time)

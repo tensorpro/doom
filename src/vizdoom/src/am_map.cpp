@@ -68,6 +68,8 @@
 #include "a_keys.h"
 #include "r_data/colormaps.h"
 
+#include <iostream>
+
 
 //=============================================================================
 //
@@ -561,12 +563,16 @@ static fixed_t scale_ftom;
 
 // translates between frame-buffer and map distances
 inline fixed_t FTOM(fixed_t x)
-{
+{	
+	//std::cout << "scale_ftom:" << scale_ftom << std::endl;
+	//std::cout << MAPUNIT << std::endl;
 	return x * scale_ftom;
 }
 
 inline fixed_t MTOF(fixed_t x)
 {
+	//std::cout << "x = " << x << std::endl;
+	//std::cout << "scale_mtof:" << scale_mtof << std::endl;
 	return MulScale24 (x, scale_mtof);
 }
 
@@ -643,10 +649,10 @@ CUSTOM_CVAR (Int, am_cheat, 0, 0)
 #define F_PANINC		(140/TICRATE)
 // how much zoom-in per tic
 // goes to 2x in 1 second
-#define M_ZOOMIN        (1.02*MAPUNIT)
+#define M_ZOOMIN        (1.00*MAPUNIT)
 // how much zoom-out per tic
 // pulls out to 0.5x in 1 second
-#define M_ZOOMOUT       (MAPUNIT/1.02)
+#define M_ZOOMOUT       (MAPUNIT/1.00)
 
 // translates between frame-buffer and map coordinates
 #define CXMTOF(x)  (MTOF((x)-m_x)/* - f_x*/)
@@ -1559,6 +1565,31 @@ CCMD(am_zoom)
 		am_zoomdir = (float)atof(argv[1]);
 	}
 }
+
+// VIZDOOM_CODE
+CCMD(am_scale)
+{
+	if (argv.argc() >= 2)
+	{
+		scale_mtof = int(atof(argv[1]) * INITSCALEMTOF);
+		scale_ftom = MapDiv(MAPUNIT, scale_mtof);
+		/*
+		if (scale_mtof < min_scale_mtof)
+ 			AM_minOutWindowScale();
+ 		else if (scale_mtof > max_scale_mtof)
+ 			AM_maxOutWindowScale();
+		*/
+ 	}
+ }
+ 
+ CCMD(am_grid)
+ {
+     if (argv.argc() >= 2) {
+         grid = bool(atoi(argv[1]));
+         Printf("%s\n", GStrings(grid ? "AMSTR_GRIDON" : "AMSTR_GRIDOFF"));
+     }
+ }
+ 
 
 //=============================================================================
 //
@@ -2614,6 +2645,9 @@ void AM_drawPlayers ()
 
 		pt.x = players[consoleplayer].camera->X() >> FRACTOMAPBITS;
 		pt.y = players[consoleplayer].camera->Y() >> FRACTOMAPBITS;
+
+		//std::cout << FIXED2FLOAT(players[consoleplayer].camera->X()) << std::endl;
+
 		if (am_rotate == 1 || (am_rotate == 2 && viewactive))
 		{
 			angle = ANG90;

@@ -13,6 +13,10 @@ from __future__ import print_function
 from time import sleep
 from vizdoom import *
 
+import numpy as np
+
+import cv2
+
 game = DoomGame()
 
 # Choose scenario config file you wish to watch.
@@ -31,15 +35,19 @@ game.load_config("../../scenarios/deathmatch.cfg")
 # game.load_config("../../scenarios/predict_position.cfg")
 # game.load_config("../../scenarios/take_cover.cfg")
 
+game.set_automap_buffer_enabled(True)
+
 
 # Enables freelook in engine
 game.add_game_args("+freelook 1")
+
+
 
 game.set_screen_resolution(ScreenResolution.RES_640X480)
 
 # Enables spectator mode, so you can play. Sounds strange but it is the agent who is supposed to watch not you.
 game.set_window_visible(True)
-game.set_mode(Mode.SPECTATOR)
+game.set_mode(Mode.PLAYER)
 
 game.init()
 
@@ -55,6 +63,13 @@ for i in range(episodes):
         game.advance_action()
         last_action = game.get_last_action()
         reward = game.get_last_reward()
+
+        automap_buf = state.automap_buffer
+
+        automap = automap_buf.astype(np.uint8)
+
+        cv2.imshow('automap:', automap)
+        cv2.waitKey(2)
 
         print("State #" + str(state.number))
         print("Game variables: ", state.game_variables)

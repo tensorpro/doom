@@ -17,12 +17,12 @@ from vizdoom import *
 
 # Options:
 resolution = ScreenResolution.RES_320X240
-screen_format = ScreenFormat.CRCGCB
+screen_format = ScreenFormat.RGB24
 depth_buffer = False
 labels_buffer = True
 automap_buffer = True
 
-iterations = 10000
+iterations = 1
 
 #####################################################################
 
@@ -49,7 +49,7 @@ idle = [False, False, False]
 start = time()
 
 print("Checking FPS rating. It may take some time. Be patient.")
-
+import cv2
 for i in range(iterations):
 
     if game.is_episode_finished():
@@ -58,7 +58,8 @@ for i in range(iterations):
     # Copying happens here
     s = game.get_state()
     game.make_action(choice(actions))
-
+    cv2.imwrite('lab.png',s.labels_buffer*40)
+    cv2.imwrite('map.png',s.automap_buffer)
 end = time()
 t = end - start
 print("Results:")
