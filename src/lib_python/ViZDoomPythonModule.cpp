@@ -419,6 +419,7 @@ BOOST_PYTHON_MODULE(vizdoom)
         .def_readonly("screen_buffer", &GameStatePython::screenBuffer)
         .def_readonly("depth_buffer", &GameStatePython::depthBuffer)
         .def_readonly("labels_buffer", &GameStatePython::labelsBuffer)
+        .def_readonly("real_labels_buffer", &GameStatePython::realLabelsBuffer)
         .def_readonly("automap_buffer", &GameStatePython::automapBuffer)
 
         .def_readonly("labels", &GameStatePython::labels);

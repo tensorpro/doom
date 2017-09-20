@@ -87,6 +87,7 @@ namespace vizdoom {
         bpya::object screenBuffer;
         bpya::object depthBuffer;
         bpya::object labelsBuffer;
+	bpya::object realLabelsBuffer;
         bpya::object automapBuffer;
 
         bpy::list labels;

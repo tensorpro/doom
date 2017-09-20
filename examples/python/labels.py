@@ -56,7 +56,7 @@ for i in range(episodes):
 
         labels = state.labels_buffer
         if labels is not None:
-            cv2.imshow('ViZDoom Labels Buffer', labels)
+            cv2.imshow('ViZDoom Labels Buffer', labels*50)
 
         cv2.waitKey(sleep_time)
 
