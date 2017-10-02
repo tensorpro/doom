@@ -236,7 +236,7 @@ std::unordered_set<std::string> ENEMIES = {
   "BossBrain",
   "BossEye",
   "BossTarget"
-  "MarineChainsawVzd",
+  "MarineChainsawVzd"
 };
 
   
@@ -292,7 +292,7 @@ std::unordered_set<std::string> PLAYERS = {
 std::unordered_set<std::string> COURSE_CLASSES[] = {ENEMIES, DEFENSIVE, WEAPONS, AMMO};
 // VIZ_WALL_LABEL = COURSE_CLASSES.size()+2;
 BYTE custom_label(char* input){
-  puts(input);
+  // puts(input);
   for (int i = 0; i < 5; i++){
     std::unordered_set<std::string> myset = COURSE_CLASSES[i];
     
