@@ -816,7 +816,6 @@ void AM_minOutWindowScale ();
 
 CVAR(Bool, am_followplayer, true, CVAR_ARCHIVE)
 
-
 CCMD(am_togglefollow)
 {
 	am_followplayer = !am_followplayer;

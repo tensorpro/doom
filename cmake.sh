@@ -22,10 +22,10 @@ fi
 
 echo $BASEDIR/lib/libpython2.7.$F_LIB
 
-# ./cmake_clean.sh
-# rm -rf ./bin
+./cmake_clean.sh
+rm -rf ./bin
 
-cmake . -DCMAKE_BUILD_TYPE=Debug -DBUILD_PYTHON=ON \
+cmake . -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON \
 -DPYTHON_INCLUDE_DIR=$BASEDIR/include/python2.7 \
 -DPYTHON_LIBRARY=$BASEDIR/lib/libpython2.7.$F_LIB \
 -DPYTHON_EXECUTABLE=$BASEDIR/bin/python2.7 \
@@ -35,4 +35,4 @@ make -j
 
 rm -rf $BASEDIR/lib/python2.7/site-packages/vizdoom
 mkdir -p $BASEDIR/lib/python2.7/site-packages/vizdoom
-cp -r bin/python2/pip_package/ $BASEDIR/lib/python2.7/site-packages/vizdoom
+cp -r bin/python2/pip_package/* $BASEDIR/lib/python2.7/site-packages/vizdoom
