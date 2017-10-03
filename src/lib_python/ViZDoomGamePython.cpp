@@ -52,7 +52,8 @@ std::vector<std::string> ENEMIES = {
         "CommanderKeen",
         "BossBrain",
         "BossEye",
-        "BossTarget"
+        "BossTarget",
+	"MarineChainsawVzd"
 };
 
 
