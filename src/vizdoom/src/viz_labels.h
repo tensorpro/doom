@@ -54,7 +54,7 @@
 #define VIZ_MAX_LABELS 256
 #define VIZ_MAX_LABEL_NAME_LEN 64
 #define NUM_DYNAMIC_ENTITIES 4
-#define WALL_LABEL (NUM_DYNAMIC_ENTITIES+2)
+#define WALL_LABEL (NUM_DYNAMIC_ENTITIES+1)
 struct VIZLabel{
     unsigned int objectId;
     char objectName[VIZ_MAX_LABEL_NAME_LEN];
