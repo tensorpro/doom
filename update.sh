@@ -1,6 +1,5 @@
 #!/bin/bash	
-BASEDIR=$HOME/anaconda2
+BASEDIR=$HOME/.conda
 echo $1
-cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPYTHON_INCLUDE_DIR=$HOME/$1/include/python2.7 -DPYTHON_LIBRARY=$HOME/$1/lib/libpython2.7.so  -DPYTHON_EXECUTABLE=$HOME/$1/bin/python2.7 -DNUMPY_INCLUDES=$HOME/$1/lib/python2.7/site-packages/numpy/core/include
 rm -rf $BASEDIR/lib/python2.7/site-packages/vizdoom
-cp -r bin/python2.7/pip-package $BASEDIR/lib/python2.7/site-pcakages/vizdoom
+cp -r bin/python2/pip_package $BASEDIR/lib/python2.7/site-packages/vizdoom
