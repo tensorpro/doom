@@ -97,6 +97,7 @@ public:
     BYTE *getBufferPoint(unsigned int x, unsigned int y);
     void setPoint(unsigned int x, unsigned int y, BYTE label);
     void setPoint(unsigned int x, unsigned int y);
+    void clearStairs();
     unsigned int getBufferSize();
     unsigned int getBufferWidth();
     unsigned int getBufferHeight();

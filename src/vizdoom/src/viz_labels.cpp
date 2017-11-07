@@ -91,6 +91,45 @@ void VIZLabelsBuffer::setPoint(unsigned int x, unsigned int y, BYTE label) {
     if(map != NULL) *map = label;
 }
 
+
+// Clears out wall
+void VIZLabelsBuffer::clearStairs() {
+  puts("clear");
+  int min_wall = 30;
+  for(unsigned int x=0; x<bufferWidth;x++){
+    // for(unsigned int x=70; x<90;x++){
+    int wall_strip_height = 0;
+    bool at_wall = false;
+
+    for(unsigned int y=0;y<bufferHeight;y++){
+    // for(unsigned int y=50;y<51;y++){
+
+
+      BYTE* curr = this->getBufferPoint(x,y);
+      if(y>bufferHeight-40){
+        curr[0]=0;
+      }
+      // curr[0]=0;
+      at_wall = curr[0]!=0;
+      
+      if(at_wall) wall_strip_height++;
+      // printf("\nat_wall: %d height: %d", at_wall, wall_strip_height);
+      if((!at_wall || y==bufferHeight-1)  &&
+         wall_strip_height < min_wall){
+        // printf("\nClearing %d pixels\n", wall_strip_height);
+        for(int i=0; i<=wall_strip_height;i++){
+          BYTE* to_clear = this->getBufferPoint(x,y-i);
+          to_clear[0] = 0;
+        }
+        at_wall=false;
+        
+      }
+      if(!at_wall)wall_strip_height=0;
+    }
+  }
+}
+
+
 // Get buffer size
 unsigned int VIZLabelsBuffer::getBufferSize(){
     return this->bufferSize;

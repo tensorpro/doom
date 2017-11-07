@@ -740,7 +740,47 @@ void R_SetupBuffer ()
 // R_RenderActorView
 //
 //==========================================================================
+
+
 //VIZDOOM_CODE
+void clearStairs() {
+  unsigned int bufferHeight = 120;
+  unsigned int bufferWidth = 160;
+  if(vizLabels==NULL) return;
+  if(vizDepthMap==NULL) return;
+  int min_wall = 30;
+  for(unsigned int x=0; x<bufferWidth;x++){
+    // for(unsigned int x=70; x<90;x++){
+    int wall_strip_height = 0;
+    bool at_wall = false;
+    for(unsigned int y=1;y<bufferHeight;y++){
+    // for(unsigned int y=50;y<51;y++){
+      BYTE* curr = vizLabels->getBufferPoint(x,y);
+      BYTE* currd = vizDepthMap->getBufferPoint(x,y);
+      BYTE* prevd = vizDepthMap->getBufferPoint(x,y-1);
+      if(y>bufferHeight-40){
+        curr[0]=0;
+      }
+      bool samed = prevd[0]==currd[0];
+      at_wall = curr[0]!=0;
+      
+      if(at_wall) wall_strip_height++;
+      // printf("\nat_wall: %d height: %d", at_wall, wall_strip_height);
+      if((!at_wall || y==bufferHeight-1 || !samed)  &&
+         wall_strip_height < min_wall){
+        // printf("\nClearing %d pixels\n", wall_strip_height);
+        for(int i=0; i<=wall_strip_height;i++){
+          BYTE* to_clear = vizLabels->getBufferPoint(x,y-i);
+          to_clear[0] = 0;
+        }
+        at_wall=false;
+        
+      }
+      if(!at_wall || !samed)wall_strip_height=0;
+    }
+  }
+}
+
 void R_RenderActorView (AActor *actor, bool dontmaplines)
 {
 	WallCycles.Reset();
@@ -828,6 +868,9 @@ void R_RenderActorView (AActor *actor, bool dontmaplines)
 		NetUpdate ();
 		
 		MaskedCycles.Clock();
+
+                clearStairs();
+                
 		R_DrawMasked ();
 		MaskedCycles.Unclock();
 

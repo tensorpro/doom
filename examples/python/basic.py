@@ -28,10 +28,10 @@ game = DoomGame()
 
 # Sets path to additional resources wad file which is basically your scenario wad.
 # If not specified default maps will be used and it's pretty much useless... unless you want to play good old Doom.
-game.set_doom_scenario_path("../../scenarios/basic.wad")
+game.set_doom_scenario_path("../../scenarios/my_way_home.wad")
 
 # Sets map to start (scenario .wad files can contain many maps).
-game.set_doom_map("map01")
+#game.set_doom_map("map02")
 
 # Sets resolution. Default is 320X240
 game.set_screen_resolution(ScreenResolution.RES_160X120)
@@ -84,7 +84,7 @@ game.set_sound_enabled(True)
 game.set_living_reward(-1)
 
 # Sets ViZDoom mode (PLAYER, ASYNC_PLAYER, SPECTATOR, ASYNC_SPECTATOR, PLAYER mode is default)
-game.set_mode(Mode.PLAYER)
+game.set_mode(Mode.SPECTATOR)
 
 # Enables engine output to console.
 #game.set_console_enabled(True)

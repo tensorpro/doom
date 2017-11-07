@@ -24,10 +24,11 @@ game = DoomGame()
 
 # Use other config file if you wish.
 game.load_config("../../scenarios/deadly_corridor.cfg")
+game.load_config("../../scenarios/my_way_home.cfg")
 game.set_render_hud(False)
 
-game.set_screen_resolution(ScreenResolution.RES_640X480)
-
+game.set_screen_resolution(ScreenResolution.RES_160X120)
+game.set_
 # Enables labeling of the in game objects.
 game.set_labels_buffer_enabled(True)
 
