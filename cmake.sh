@@ -14,7 +14,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
 else
         echo "Using Linux Settings for compilation"
         if [[ $BASEDIR == "" ]]; then
-                BASEDIR=$HOME/anaconda2
+                BASEDIR=$HOME/.anaconda
         fi
 
         F_LIB="so"
